@@ -12,11 +12,9 @@ app.post('/strings', (request, response) => {
   if (!value) {
     return response.status(400).json({ error: `Invalid request body or missing "value" field`})
   }
-
   if (typeof value !== 'string') {
     return response.status(422).json({ error: `Invalid data type for "value" (must be string)` });
   }
-  
   if (stringStore.containsString(value)) {
     return response.status(409).json({ error: 'String already exists in the system' });
   }
@@ -54,6 +52,15 @@ app.get('/strings', (request, response) => {
   } catch (error) {
     res.status(400).json({ error: 'Invalid query parameter values or types' });
   }
+})
+
+app.delete('/strings/:string_value', (request, response) => {
+  const value = request.params.string_value
+  if (!stringStore.containsString(value)) {
+    return response.status(404).json({ error: "String does not exist in the system" })
+  }
+  stringStore.removeFromStore(value)
+  response.status(204).send()
 })
 
 

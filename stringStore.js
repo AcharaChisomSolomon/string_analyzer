@@ -96,6 +96,13 @@ class StringStore {
       filters_applied: filters
     })
   }
+
+  removeFromStore(str) {
+    console.log(str);
+    
+    const hash = crypto.createHash('sha256').update(str).digest('hex');
+    this.stringStore.delete(hash)
+  }
 }
 
 module.exports = StringStore
