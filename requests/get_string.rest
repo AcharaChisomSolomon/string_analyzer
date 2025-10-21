@@ -1,0 +1,4 @@
+GET http://localhost:3000/strings/string%20to%20analyze
+
+###
+GET http://localhost:3000/strings/23

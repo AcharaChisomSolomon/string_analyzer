@@ -24,6 +24,15 @@ app.post('/strings', (request, response) => {
   response.status(201).json(stringStore.addToStore(value))
 })
 
+app.get('/strings/:string_value', (request, response) => {
+  const value = request.params.string_value
+  const entry = stringStore.getFromStore(value)
+  if (!entry) {
+    return response.status(404).json({ error: "String does not exist in the system"})
+  }
+  response.status(200).json(entry)
+})
+
 
 const PORT = 3000
 app.listen(PORT, () => {

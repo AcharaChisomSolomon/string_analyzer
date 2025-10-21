@@ -6,10 +6,6 @@ class StringStore {
   }
 
   computeProperties(str) {
-    if (typeof str !== 'string') {
-      throw new Error('Invalid data type for "value" (must be string)');
-    }
-
     const length = str.length;
     const lowerStr = str.toLowerCase();
     const is_palindrome = lowerStr === lowerStr.split('').reverse().join('');
@@ -49,6 +45,11 @@ class StringStore {
     };
     this.stringStore.set(properties.sha256_hash, entry);
     return this.stringStore.get(properties.sha256_hash)
+  }
+
+  getFromStore(str) {
+    const str_hash = crypto.createHash('sha256').update(str).digest('hex');
+    return this.stringStore.get(str_hash)
   }
 }
 
