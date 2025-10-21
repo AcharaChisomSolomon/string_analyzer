@@ -1,0 +1,22 @@
+POST http://localhost:3000/strings
+Content-Type: application/json
+
+{
+  "value": "string to analyze"
+}
+
+###
+POST http://localhost:3000/strings
+Content-Type: application/json
+
+{
+  "value": true
+}
+
+###
+POST http://localhost:3000/strings
+Content-Type: application/json
+
+{
+  
+}
