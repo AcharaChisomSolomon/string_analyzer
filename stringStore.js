@@ -1,3 +1,4 @@
+const { count } = require('console');
 const crypto = require('crypto')
 
 class StringStore {
@@ -94,6 +95,27 @@ class StringStore {
       data: results,
       count: results.length,
       filters_applied: filters
+    })
+  }
+
+  handleNaturalLanguageFilters(parsed_filters, query) {
+    const results = Array.from(this.stringStore.values()).filter((entry) => {
+      const p = entry.properties;
+      if (parsed_filters.is_palindrome !== undefined && p.is_palindrome !== parsed_filters.is_palindrome) return false;
+      if (parsed_filters.min_length !== undefined && p.length < parsed_filters.min_length) return false;
+      if (parsed_filters.max_length !== undefined && p.length > parsed_filters.max_length) return false;
+      if (parsed_filters.word_count !== undefined && p.word_count !== parsed_filters.word_count) return false;
+      if (parsed_filters.contains_character !== undefined && !entry.value.includes(parsed_filters.contains_character)) return false;
+      return true;
+    });
+
+    return ({
+      data: results,
+      count: results.length,
+      interpreted_query: {
+        original: query,
+        parsed_filters
+      }
     })
   }
 

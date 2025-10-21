@@ -1,5 +1,6 @@
 const express = require('express')
 const StringStore = require('./stringStore')
+const parseNaturalLanguageQuery = require('./utils')
 
 const stringStore = new StringStore()
 
@@ -20,6 +21,22 @@ app.post('/strings', (request, response) => {
   }
 
   response.status(201).json(stringStore.addToStore(value))
+})
+
+app.get('/strings/filter-by-natural-language', (request, response) => {
+  const { query } = request.query
+  
+  try {
+    const parsed_filters = parseNaturalLanguageQuery(query)
+    console.log(parsed_filters);
+    
+    const data = stringStore.handleNaturalLanguageFilters(parsed_filters, query)
+    response.status(200).json(data)
+  } catch (error) {
+    const status = error.message.includes('conflicting') ? 422 : 400;
+    response.status(status).json({ error: error.message });
+  }
+
 })
 
 app.get('/strings/:string_value', (request, response) => {
@@ -62,8 +79,6 @@ app.delete('/strings/:string_value', (request, response) => {
   stringStore.removeFromStore(value)
   response.status(204).send()
 })
-
-
 
 
 const PORT = 3000

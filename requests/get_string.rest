@@ -8,3 +8,9 @@ GET http://localhost:3000/strings?is_palindrome=true&min_length=5&max_length=20&
 
 ###
 GET http://localhost:3000/strings
+
+###
+GET http://localhost:3000/strings/filter-by-natural-language?query=all%20single%20word%20palindromic%20strings
+
+###
+GET http://localhost:3000/strings/filter-by-natural-language?query=strings%20longer%20than%2010%20characters
