@@ -1,4 +1,10 @@
 GET http://localhost:3000/strings/string%20to%20analyze
 
 ###
-GET http://localhost:3000/strings/23
+GET http://localhost:3000/strings/abba
+
+###
+GET http://localhost:3000/strings?is_palindrome=true&min_length=5&max_length=20&word_count=2&contains_character=a
+
+###
+GET http://localhost:3000/strings?is_palindrome=true

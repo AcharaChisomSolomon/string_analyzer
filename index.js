@@ -33,6 +33,31 @@ app.get('/strings/:string_value', (request, response) => {
   response.status(200).json(entry)
 })
 
+app.get('/strings', (request, response) => {
+  const { 
+    is_palindrome, 
+    min_length, 
+    max_length, 
+    word_count, 
+    contains_character 
+  } = request.query
+
+  try {
+    const data = stringStore.handleFilters({ 
+      is_palindrome, 
+      min_length, 
+      max_length, 
+      word_count, 
+      contains_character 
+    })
+    response.status(200).json(data)
+  } catch (error) {
+    res.status(400).json({ error: 'Invalid query parameter values or types' });
+  }
+})
+
+
+
 
 const PORT = 3000
 app.listen(PORT, () => {

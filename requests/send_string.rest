@@ -10,6 +10,14 @@ POST http://localhost:3000/strings
 Content-Type: application/json
 
 {
+  "value": "abba"
+}
+
+###
+POST http://localhost:3000/strings
+Content-Type: application/json
+
+{
   "value": true
 }
 
