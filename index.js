@@ -81,7 +81,7 @@ app.delete('/strings/:string_value', (request, response) => {
 })
 
 
-const PORT = 3000
-app.listen(PORT, () => {
-  console.log(`Server running on PORT ${PORT}`);
-})
+const port = process.env.PORT || 3000
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server running on PORT ${port}`);
+});
